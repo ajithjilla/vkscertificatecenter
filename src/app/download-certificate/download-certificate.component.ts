@@ -83,9 +83,9 @@ export class DownloadCertificateComponent implements OnInit {
 
     this.loading = true;
     // this.generatedCaptcha
-    this.firestore.collection('certificate', ref => ref.where('aadhaarNumber', '==', this.aadharNumber).where('eventId', '==', this.eventId).limit(1)).valueChanges().subscribe(data => {
+    this.firestore.collection('certificate', ref => ref.where('aadhaarNumber', '==', this.aadharNumber).where('eventId', '==', this.eventId).limit(1)).valueChanges().subscribe((data: any) => {
       this.loading = false;
-      this.certificateData = data;
+      this.certificateData = data[0];
 
       if(this.certificateData) {
         this.success = true;
