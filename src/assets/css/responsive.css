@@ -1,0 +1,27 @@
+@media (max-width: 767px) {
+	.lg-display{
+		display: none !important;
+	  }
+	  .mb-display{
+		display: block !important;
+	  }
+	  .captcha{
+		  margin-bottom:20px;
+	  }
+	  .box-border {
+		  width:100%;
+	  }
+	  .mb-center {
+		  text-align: center;
+	  }
+	  .modal-dialog {
+		margin-top: 30%;
+	  }
+	  .popup-close-btn{
+		  right: 5px !important;
+	  }
+	  .modal-body {
+		width: 320px !important;
+		height: 420px !important;
+	}
+}

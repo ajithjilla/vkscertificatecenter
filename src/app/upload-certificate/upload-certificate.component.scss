@@ -1,0 +1,461 @@
+.drop-it-hot {
+  background-color: white;
+  border-radius: 15px;
+  margin-top: 20px;
+  height: 186px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 15px 0 rgb(0 0 0 / 10%);
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    border: none;
+    border-radius: 5px;
+    z-index: 0;
+  }
+
+  .circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: absolute;
+    color: var(--accent);
+    background-color: #0586d7;
+    border: 3px solid #eae4e4;
+    width: 100px;
+    height: 100px;
+    top: 12px;
+  }
+}
+
+.circle {
+  transition: transform 150ms ease-in;
+  z-index: 10;
+
+  svg {
+    width: 40px;
+    height: 40px;
+    color: white;
+  }
+
+  &:before {
+    content: '';
+    background-color: var(--accent);
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    position: absolute;
+    opacity: 0;
+    transition: transform 250ms ease-in, opacity 200ms ease-in;
+    z-index: 0;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    transform: scale(1.2);
+    opacity: .9;
+
+    &:before {
+      transform: scale(8);
+      opacity: 1;
+    }
+
+    &:after {
+      border: 3px solid white;
+    }
+
+    svg {
+      color: white;
+      z-index: 1;
+    }
+  }
+}
+
+.highlight {
+
+  &:before {
+    transform: scale(8);
+    opacity: 1;
+  }
+
+  &:after {
+    border: 3px solid white;
+  }
+
+  svg {
+    color: white;
+    z-index: 1;
+  }
+}
+
+// Choose file button
+
+.choose-files {
+  align-self: flex-end;
+  z-index: 10;
+}
+
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  top: 26px;
+  cursor: pointer;
+
+  &:hover {
+    .btn {
+      background-color: #0986d9;
+    }
+  }
+}
+
+.label {
+  margin-bottom: 20px;
+  color: var(--dark-gray);
+  font-size: 18px;
+}
+
+.button-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.btn {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  background-color: #0986d9;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 200ms ease-in;
+}
+
+// Gallery
+
+#gallery {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(var(--contrast)) brightness(var(--brightness)) sepia(var(--sepia)) hue-rotate(var(--hue-rotate));
+  }
+}
+
+// Range sliders
+
+.editor {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 700px;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: white;
+  margin-top: -10px;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.is-visible {
+  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.range-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
+.range {
+  -webkit-appearance: none;
+  height: 2px;
+  border-radius: 5px;
+  background: var(--gray);
+  outline: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+// Firefox Overrides
+::-moz-range-track {
+  background: var(--gray);
+  border: 0;
+}
+
+input::-moz-focus-inner,
+input::-moz-focus-outer {
+  border: 0;
+}
+
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 8px;
+  background-color: var(--accent);
+  cursor: pointer;
+}
+
+input[type=range]::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 8px;
+  background-color: var(--accent);
+  cursor: pointer;
+}
+
+input[type=range]::-ms-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 8px;
+  background-color: var(--accent);
+  cursor: pointer;
+}
+
+.loading {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: block;
+  height: 130px;
+  color: white !important;
+  font-size: 20px !important;
+  width: 100%;
+  margin: auto !important;
+  text-align: center;
+}
+
+/* Transparent Overlay */
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+  margin:auto;
+}
+
+.loading:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 90px;
+  height: 90px;
+  margin-top: -0.5em;
+  border: 5px solid #82dff1;
+  border-bottom-color: transparent;
+  animation: spinner 1s linear 0s infinite;
+  margin: auto;
+  border-radius: 100%;
+}
+.loading-text {
+  position: relative;
+  bottom: 0px;
+  line-height: 20px;
+  top: 130px;
+  background-color: rgb(34 34 35 / 75%);
+  padding: 7px;
+  border-radius: 5px;
+  font-weight: bold;
+  width: fit-content;
+  margin: auto;
+}
+
+.uploadDropzone { 
+  border:thin dashed #aaa;
+  padding:40px; 
+  text-align: center; 
+  border-radius: 5px;
+}
+
+.uploadDropzone .cloud { 
+  font-size: 48px;
+  line-height: 1;
+  opacity: .5;
+}
+
+.uploadMessage {
+  margin-top:.5rem;
+}
+
+.uploadProgress {
+  margin-top:.5rem;
+  background-color: #fff;
+  border: thin solid #aaa;
+  border-radius: 3px;   
+}
+
+.uploadProgress:empty {
+  background: none; margin:0; border:0;
+}
+
+.uploadProgress .wrapper {
+  position: relative;
+  background-color: #fff;
+  white-space: nowrap;
+  border-bottom: thin solid #d2d2d2;
+  line-height: 35px; 
+  padding: 0 0 0 10px; 
+}
+
+.uploadProgress .wrapper:last-child {
+  border-bottom: 0;
+}
+
+.uploadProgress .wrapper:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.uploadProgress .name {
+  display: block;
+  float: left;
+  white-space: nowrap;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.uploadProgress .size {
+  display: block;
+  float: left;
+  white-space: nowrap;
+  color: #aaa;
+  padding-left: 5px;
+}
+
+.uploadProgress .size:before {
+  content: "(";
+}
+
+.uploadProgress .size:after {
+  content: ")";
+}
+
+.uploadProgress .progress {
+  display: block;
+  float: right;
+  width: 180px;
+  margin-top: 15px;
+  margin-right:10px
+}
+
+.uploadProgress .deleteAttachment {
+  display: block;
+  float: right;
+  padding: 0;
+  background-color: transparent !important;
+  border: 0 !important;
+  background-image: none;
+  line-height:inherit;
+}
+
+.deleteAttachment:after {
+  content: '\00D7';
+  display: block;
+  line-height: inherit;
+  width: 35px;
+  text-align: center;
+  color: rgba(0, 0, 0, .3);
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.uploadProgress .wrapper.success {
+  color:green;
+}
+.uploadProgress .wrapper.error {
+  color:red;
+}
+
+.uploadProgress .error .progress { display:none; }
+.uploadProgress .success .progress { display:none; }
+.plus-border {
+  font-size: 5rem;
+    color: white;
+    margin-top: -33px;
+    background: #0586d7;
+    border-radius: 50%;
+    height: 70px;
+    margin-right: -10px;
+    width: 70px;
+    padding: 15px;
+    float:right;
+    cursor: pointer;
+}
+.plus-icon{
+  font-size: 42px;
+  padding: 0px 7px;
+  margin-top: -14px;
+  color: white;
+}
+.plus-border input {
+  font-size: 4px;
+    position: absolute;
+    height: 57px;
+    margin-top: -6px;
+    width: 56px;
+    margin-left: -8px;
+    opacity: 0;
+}
+.upload-file {
+  width:600px; margin:50px auto;
+}
+.url-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+}

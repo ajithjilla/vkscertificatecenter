@@ -1,0 +1,80 @@
+<div  *ngIf="loading" class="loading">
+    <div class="loading-text">Uploading certificate...</div>
+</div>
+
+<section class="container bg-border mt-20">
+
+    <div class="bold text-danger">*Note</div>
+    <div class="text-danger">1. Upload Clear photo or certificate make sure that all letters are visible</div>
+    <div class="text-danger">2. File type must be in (ipg/jpeg/png).</div>
+    <div class="text-danger">3. File size must be below amh</div>
+
+    <div class="shadow">
+        <div class="upload-title mt-20">Upload certificate</div>
+
+        <div class="col-12 col-lg-6 offset-lg-3">
+
+            <div class="row mt-20">
+                <div class="col-12 col-lg-6 margin-auto title">
+                    *Aadhar card number
+                </div>
+                <div class="col-12 col-lg-6">
+                    <input [(ngModel)]="aadharNumber" type="text" class="box-border" />
+                </div>
+            </div>
+
+            <div class="row mt-20">
+                <div class="col-12 col-lg-6 margin-auto title">
+                    *Event Name
+                </div>
+                <div class="col-12 col-lg-6">
+                    <span class="pointer">
+                        <select [(ngModel)]="eventId" class="box-border">
+                            <option value="1">Master royal cup 2022</option>
+                            <option value="2">Grand Prix international 2022</option>
+                            <option value="3">State level silambam Tournament</option>
+                            <option value="'4">TN open championship 2021</option>
+                            <option value="5">Silimbam Interdistrict 2021</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="upload-file">
+                <div class="plus-border" >
+                    <input type="file" id="fileElem" multiple accept="image/*" (change)="onSelectFile($event)">
+                    <div class="plus-icon">+</div>
+                </div>
+                <div class="uploadContainer">
+                    <div class="uploadDropzone">
+                        <img src="{{url}}" *ngIf="url" class="url-img">
+                        <div *ngIf ="!url">
+                        <h5>Drag files here to upload</h5>
+                        <p class="text-muted">or <b style="color: #0586d7;">browse</b> to choose files.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row mt-20 mb-20">
+                <div class="col-12 col-lg-6 drop-it-hot" id="drop-area">
+                    <img [src]="url" height="200">
+                    <form class="choose-files">
+                        <div class="button-wrapper">
+                            <button type="button" class="btn">Choose image</button>
+                            <input type="file" id="fileElem" multiple accept="image/*" (change)="onSelectFile($event)">
+                        </div>
+                    </form>
+                    <div id="gallery"></div>
+                </div>
+            </div> -->
+
+            <span [ngClass]="success ? 'text-success' : 'text-danger'" *ngIf="alert">{{alert}}</span>
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button (click)="uploadImage()" type="button" class="btn btn-blue">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

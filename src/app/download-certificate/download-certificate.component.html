@@ -1,0 +1,71 @@
+<div *ngIf="loading" class="loading">
+    <div class="row">Getting certificate...</div>
+</div>
+
+<section class="container bg-border mt-20">
+    <div class="bold">*Note</div>
+    Enter your aadhar card number and select the event name of the certificate to be downloaded
+
+    <div class="shadow">
+
+        <div class="upload-title mt-20">Certificate center</div>
+        <div class="col-12 col-lg-6 offset-lg-3">
+
+            <div class="row mt-20">
+                <div class="col-12 col-lg-6 margin-auto title">
+                    Aadhar card number
+                </div>
+                <div class="col-12 col-lg-6">
+                    <input [(ngModel)]="aadharNumber" type="text" class="box-border" />
+                </div>
+            </div>
+
+            <div class="row mt-20">
+                <div class="col-12 col-lg-6 margin-auto title">
+                    Event Name
+                </div>
+                <div class="col-12 col-lg-6">
+                    <span class="pointer">
+                        <select class="box-border">
+                            <option>Master royal cup 2022</option>
+                            <option>Grand Prix international 2022</option>
+                            <option>State level silambam Tournament</option>
+                            <option>TN open championship 2021</option>
+                            <option>Silimbam Interdistrict 2021</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mt-20 mb-20">
+                <div class="col-12 col-lg-6 margin-auto mb-center">
+                    <button type="button" class="button captcha" id="show_captcha_button">{{generatedCaptcha}}</button>
+                </div>
+                <div class="col-12 col-lg-6 margin-auto">
+                    <input [(ngModel)]="captcha" type="text" class="box-border" placeholder="Enter captcha" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div [ngClass]="success ? 'text-success' : 'text-danger'" *ngIf="alert">{{alert}}</div>
+                    <button (click)="getCertificate()" type="button" class="btn btn-blue">View</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<div class="modal d-block" *ngIf="popup" tabindex="-1" role="dialog" aria-labelledby="logout" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="popup-close-btn" data-dismiss="modal" (click)="popupClose()">X</button>
+            <div class="modal-body">
+                <div class="popup_image">
+                <img src={{items.certificateUrl}} id="imagepreview">
+                </div>
+            </div>
+            <button  (click)="downloadUrl(items.certificateUrl,'cert')" type="button" class="btn width-100 btn-blue center-align mt-10 mb-10">Download</button>
+        </div>
+    </div>
+</div>
