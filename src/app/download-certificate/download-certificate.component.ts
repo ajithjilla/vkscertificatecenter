@@ -28,10 +28,11 @@ export class DownloadCertificateComponent implements OnInit {
   items: any;
 
   //UI items
-  aadharNumber!: number;
-  eventId: number = 1;
+  aadharNumber!: any;
+  eventId: number = 0;
   event: any;
   generatedCaptcha: any;
+  certificateData: any;
 
   //image items
   image: any;
@@ -45,6 +46,9 @@ export class DownloadCertificateComponent implements OnInit {
 
   constructor(private firestore: AngularFirestore) {
     this.itemsCollection = firestore.collection<Certificate>('certificate');
+    firestore.collection('eventDetail').valueChanges().subscribe(data => {
+      this.items = data;
+    });
   }
 
   ngOnInit(): void {
@@ -64,6 +68,13 @@ export class DownloadCertificateComponent implements OnInit {
       this.clearError();
       return;
     }
+
+    // if (this.eventId != 0) {
+    //   this.alert = "*Please select event of certificate";
+    //   this.clearError();
+    //   return;
+    // }
+
     if (this.generatedCaptcha != this.captcha) {
       this.alert = "Invalid Captcha....";
       this.clearError();
@@ -71,15 +82,24 @@ export class DownloadCertificateComponent implements OnInit {
     }
 
     this.loading = true;
-
     // this.generatedCaptcha
-    this.firestore.collection('certificate', ref => ref.where('aadhaarNumber', '==', this.aadharNumber)).valueChanges().subscribe(data => {
+    this.firestore.collection('certificate', ref => ref.where('aadhaarNumber', '==', this.aadharNumber).where('eventId', '==', this.eventId).limit(1)).valueChanges().subscribe(data => {
       this.loading = false;
-      this.success = true;
-      this.items = data[0];
-      this.captcha = '';
-      this.popup= true;
-      this.generateCAPTCHA();
+      this.certificateData = data;
+
+      if(this.certificateData) {
+        this.success = true;
+        this.captcha = '';
+        this.popup = true;
+        this.generateCAPTCHA();
+        return;
+      }
+
+      if(!this.certificateData) {
+        this.success = false;
+        this.alert = "No certificate found for this event on this aadhar";
+      this.clearError();
+      }
     });
   }
 
@@ -87,14 +107,14 @@ export class DownloadCertificateComponent implements OnInit {
     this.generatedCaptcha = Math.random().toString(36).substring(7);
   }
 
-   downloadUrl(url: string, fileName: string) {
-    const a: any = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.style = 'display: none';
-    a.click();
-    a.remove();
+  clear() {
+    this.aadharNumber = null;
+    this.eventId = 0;
+    this.certificateData = null;
+    this.popup = false;
+    this.success = false;
+    this.captcha = '';
+    this.generateCAPTCHA();
   };
 
   clearError() {
@@ -103,11 +123,11 @@ export class DownloadCertificateComponent implements OnInit {
       this.success = false;
     }, 2000);
   }
-  
-  view(){
-    this.popup= true;
+
+  view() {
+    this.popup = true;
   }
-  popupClose(){
-    this.popup=false;
+  popupClose() {
+    this.popup = false;
   }
 }
